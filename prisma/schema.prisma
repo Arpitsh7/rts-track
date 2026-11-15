@@ -1,0 +1,142 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ShipmentStatus {
+  CREATED
+  PICKED_UP
+  IN_TRANSIT
+  AT_WAREHOUSE
+  OUT_FOR_DELIVERY
+  DELIVERED
+  DELIVERY_FAILED
+  RETURNED
+  CANCELLED
+}
+
+enum ExceptionType {
+  DELIVERY_FAILED
+  CUSTOMER_UNAVAILABLE
+  WRONG_ADDRESS
+  DAMAGED
+  DELAYED
+  LOST
+  OTHER
+}
+
+enum ExceptionStatus {
+  OPEN
+  INVESTIGATING
+  RESOLVED
+}
+
+model ItemDetail {
+  id         String   @id @default(uuid())
+  name       String
+  itemNumber String   @unique
+  qty        Int
+  createdAt  DateTime @default(now())
+
+  shipments  ShipmentDetail[]
+}
+
+model CustomerDetail {
+  id        String   @id @default(uuid())
+  name      String
+  PNo       String
+  pincode   String
+  Address   String
+
+  shipments ShipmentDetail[]
+}
+
+model Rider {
+  id        String   @id @default(uuid())
+  name      String
+  PNo       String
+  pincode   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  shipments       ShipmentDetail[]
+  trackingUpdates TrackUpdatesCustomer[]
+}
+
+model ShipmentDetail {
+  id               String         @id @default(uuid())
+  warehouseName    String
+  warehousePincode String
+  shipQR           String         @unique
+  status           ShipmentStatus @default(CREATED)
+
+  customerId       String
+  itemId           String
+  riderId    String?
+
+  customer         CustomerDetail @relation(fields: [customerId], references: [id])
+  item             ItemDetail     @relation(fields: [itemId], references: [id])
+  exceptions ShipmentException[]
+  riderId String?
+  rider   Rider? @relation(fields: [riderId], references: [id])
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  rider    Rider?         @relation(fields: [riderId], references: [id])
+
+  trackingUpdates  TrackUpdatesCustomer[]
+  exceptions      ShipmentException[]
+}
+
+model TrackUpdatesCustomer {
+  id          String         @id @default(uuid())
+  riderId String?
+  rider   Rider? @relation(fields: [riderId], references: [id])
+  riderId     String?
+  shipmentId  String
+  remarks     String?
+  trackUpdate ShipmentStatus
+  createdAt   DateTime       @default(now())
+
+  shipment    ShipmentDetail @relation(fields: [shipmentId], references: [id])
+  rider    Rider?         @relation(fields: [riderId], references: [id])
+}
+model Rider{
+    id String @id@default(uuid())
+    name String
+    PNo String @unique
+    pincode String
+    isActive Boolean @default(false)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    shipments ShipmentDetail[]
+    trackingUpdates TrackUpdatesCustomer[]
+}
+model ShipmentException{
+  id String @id@default(uuid())
+  shipmentId String 
+  type ExceptionType
+  description String
+  status ExceptionStatus @default(Open)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  shipment    ShipmentDetail  @relation(fields: [shipmentId], references: [id])
+}
+model ShipmentException {
+  id          String          @id @default(uuid())
+  shipmentId  String
+  type        ExceptionType
+  description String
+  status      ExceptionStatus @default(OPEN)
+  resolution  String?
+  resolvedAt  DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  shipment ShipmentDetail @relation(fields: [shipmentId], references: [id])
+}
