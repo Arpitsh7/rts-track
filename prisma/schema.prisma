@@ -7,6 +7,23 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Roles{
+  CUSTOMER
+  RIDER
+  ADMIN
+}
+model User{
+  id String @id 
+  email String @unique 
+  role Roles @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  riderId String? @unique
+  rider      Rider?   @relation(fields: [riderId], references: [id])
+  customerId String?  @unique
+  customer   CustomerDetail? @relation(fields: [customerId], references: [id])
+}
+
 enum ShipmentStatus {
   CREATED
   PICKED_UP
@@ -53,6 +70,7 @@ model CustomerDetail {
   Address String
 
   shipments ShipmentDetail[]
+  user      User?
 }
 
 model Rider {
@@ -66,6 +84,7 @@ model Rider {
 
   shipments       ShipmentDetail[]
   trackingUpdates TrackUpdatesCustomer[]
+  user      User?
 }
 
 model ShipmentDetail {
