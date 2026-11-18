@@ -183,6 +183,7 @@ export type CustomerDetailWhereInput = {
   pincode?: Prisma.StringFilter<"CustomerDetail"> | string
   Address?: Prisma.StringFilter<"CustomerDetail"> | string
   shipments?: Prisma.ShipmentDetailListRelationFilter
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type CustomerDetailOrderByWithRelationInput = {
@@ -192,6 +193,7 @@ export type CustomerDetailOrderByWithRelationInput = {
   pincode?: Prisma.SortOrder
   Address?: Prisma.SortOrder
   shipments?: Prisma.ShipmentDetailOrderByRelationAggregateInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type CustomerDetailWhereUniqueInput = Prisma.AtLeast<{
@@ -204,6 +206,7 @@ export type CustomerDetailWhereUniqueInput = Prisma.AtLeast<{
   pincode?: Prisma.StringFilter<"CustomerDetail"> | string
   Address?: Prisma.StringFilter<"CustomerDetail"> | string
   shipments?: Prisma.ShipmentDetailListRelationFilter
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type CustomerDetailOrderByWithAggregationInput = {
@@ -235,6 +238,7 @@ export type CustomerDetailCreateInput = {
   pincode: string
   Address: string
   shipments?: Prisma.ShipmentDetailCreateNestedManyWithoutCustomerInput
+  user?: Prisma.UserCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerDetailUncheckedCreateInput = {
@@ -244,6 +248,7 @@ export type CustomerDetailUncheckedCreateInput = {
   pincode: string
   Address: string
   shipments?: Prisma.ShipmentDetailUncheckedCreateNestedManyWithoutCustomerInput
+  user?: Prisma.UserUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerDetailUpdateInput = {
@@ -253,6 +258,7 @@ export type CustomerDetailUpdateInput = {
   pincode?: Prisma.StringFieldUpdateOperationsInput | string
   Address?: Prisma.StringFieldUpdateOperationsInput | string
   shipments?: Prisma.ShipmentDetailUpdateManyWithoutCustomerNestedInput
+  user?: Prisma.UserUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerDetailUncheckedUpdateInput = {
@@ -262,6 +268,7 @@ export type CustomerDetailUncheckedUpdateInput = {
   pincode?: Prisma.StringFieldUpdateOperationsInput | string
   Address?: Prisma.StringFieldUpdateOperationsInput | string
   shipments?: Prisma.ShipmentDetailUncheckedUpdateManyWithoutCustomerNestedInput
+  user?: Prisma.UserUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerDetailCreateManyInput = {
@@ -286,6 +293,11 @@ export type CustomerDetailUncheckedUpdateManyInput = {
   PNo?: Prisma.StringFieldUpdateOperationsInput | string
   pincode?: Prisma.StringFieldUpdateOperationsInput | string
   Address?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type CustomerDetailNullableScalarRelationFilter = {
+  is?: Prisma.CustomerDetailWhereInput | null
+  isNot?: Prisma.CustomerDetailWhereInput | null
 }
 
 export type CustomerDetailCountOrderByAggregateInput = {
@@ -317,6 +329,22 @@ export type CustomerDetailScalarRelationFilter = {
   isNot?: Prisma.CustomerDetailWhereInput
 }
 
+export type CustomerDetailCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.CustomerDetailCreateWithoutUserInput, Prisma.CustomerDetailUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.CustomerDetailCreateOrConnectWithoutUserInput
+  connect?: Prisma.CustomerDetailWhereUniqueInput
+}
+
+export type CustomerDetailUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerDetailCreateWithoutUserInput, Prisma.CustomerDetailUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.CustomerDetailCreateOrConnectWithoutUserInput
+  upsert?: Prisma.CustomerDetailUpsertWithoutUserInput
+  disconnect?: Prisma.CustomerDetailWhereInput | boolean
+  delete?: Prisma.CustomerDetailWhereInput | boolean
+  connect?: Prisma.CustomerDetailWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerDetailUpdateToOneWithWhereWithoutUserInput, Prisma.CustomerDetailUpdateWithoutUserInput>, Prisma.CustomerDetailUncheckedUpdateWithoutUserInput>
+}
+
 export type CustomerDetailCreateNestedOneWithoutShipmentsInput = {
   create?: Prisma.XOR<Prisma.CustomerDetailCreateWithoutShipmentsInput, Prisma.CustomerDetailUncheckedCreateWithoutShipmentsInput>
   connectOrCreate?: Prisma.CustomerDetailCreateOrConnectWithoutShipmentsInput
@@ -331,12 +359,65 @@ export type CustomerDetailUpdateOneRequiredWithoutShipmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerDetailUpdateToOneWithWhereWithoutShipmentsInput, Prisma.CustomerDetailUpdateWithoutShipmentsInput>, Prisma.CustomerDetailUncheckedUpdateWithoutShipmentsInput>
 }
 
+export type CustomerDetailCreateWithoutUserInput = {
+  id?: string
+  name: string
+  PNo: string
+  pincode: string
+  Address: string
+  shipments?: Prisma.ShipmentDetailCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerDetailUncheckedCreateWithoutUserInput = {
+  id?: string
+  name: string
+  PNo: string
+  pincode: string
+  Address: string
+  shipments?: Prisma.ShipmentDetailUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerDetailCreateOrConnectWithoutUserInput = {
+  where: Prisma.CustomerDetailWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerDetailCreateWithoutUserInput, Prisma.CustomerDetailUncheckedCreateWithoutUserInput>
+}
+
+export type CustomerDetailUpsertWithoutUserInput = {
+  update: Prisma.XOR<Prisma.CustomerDetailUpdateWithoutUserInput, Prisma.CustomerDetailUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.CustomerDetailCreateWithoutUserInput, Prisma.CustomerDetailUncheckedCreateWithoutUserInput>
+  where?: Prisma.CustomerDetailWhereInput
+}
+
+export type CustomerDetailUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.CustomerDetailWhereInput
+  data: Prisma.XOR<Prisma.CustomerDetailUpdateWithoutUserInput, Prisma.CustomerDetailUncheckedUpdateWithoutUserInput>
+}
+
+export type CustomerDetailUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  PNo?: Prisma.StringFieldUpdateOperationsInput | string
+  pincode?: Prisma.StringFieldUpdateOperationsInput | string
+  Address?: Prisma.StringFieldUpdateOperationsInput | string
+  shipments?: Prisma.ShipmentDetailUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerDetailUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  PNo?: Prisma.StringFieldUpdateOperationsInput | string
+  pincode?: Prisma.StringFieldUpdateOperationsInput | string
+  Address?: Prisma.StringFieldUpdateOperationsInput | string
+  shipments?: Prisma.ShipmentDetailUncheckedUpdateManyWithoutCustomerNestedInput
+}
+
 export type CustomerDetailCreateWithoutShipmentsInput = {
   id?: string
   name: string
   PNo: string
   pincode: string
   Address: string
+  user?: Prisma.UserCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerDetailUncheckedCreateWithoutShipmentsInput = {
@@ -345,6 +426,7 @@ export type CustomerDetailUncheckedCreateWithoutShipmentsInput = {
   PNo: string
   pincode: string
   Address: string
+  user?: Prisma.UserUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerDetailCreateOrConnectWithoutShipmentsInput = {
@@ -369,6 +451,7 @@ export type CustomerDetailUpdateWithoutShipmentsInput = {
   PNo?: Prisma.StringFieldUpdateOperationsInput | string
   pincode?: Prisma.StringFieldUpdateOperationsInput | string
   Address?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.UserUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerDetailUncheckedUpdateWithoutShipmentsInput = {
@@ -377,6 +460,7 @@ export type CustomerDetailUncheckedUpdateWithoutShipmentsInput = {
   PNo?: Prisma.StringFieldUpdateOperationsInput | string
   pincode?: Prisma.StringFieldUpdateOperationsInput | string
   Address?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.UserUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 
@@ -417,6 +501,7 @@ export type CustomerDetailSelect<ExtArgs extends runtime.Types.Extensions.Intern
   pincode?: boolean
   Address?: boolean
   shipments?: boolean | Prisma.CustomerDetail$shipmentsArgs<ExtArgs>
+  user?: boolean | Prisma.CustomerDetail$userArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerDetailCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customerDetail"]>
 
@@ -447,6 +532,7 @@ export type CustomerDetailSelectScalar = {
 export type CustomerDetailOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "PNo" | "pincode" | "Address", ExtArgs["result"]["customerDetail"]>
 export type CustomerDetailInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   shipments?: boolean | Prisma.CustomerDetail$shipmentsArgs<ExtArgs>
+  user?: boolean | Prisma.CustomerDetail$userArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerDetailCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CustomerDetailIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -456,6 +542,7 @@ export type $CustomerDetailPayload<ExtArgs extends runtime.Types.Extensions.Inte
   name: "CustomerDetail"
   objects: {
     shipments: Prisma.$ShipmentDetailPayload<ExtArgs>[]
+    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -858,6 +945,7 @@ readonly fields: CustomerDetailFieldRefs;
 export interface Prisma__CustomerDetailClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   shipments<T extends Prisma.CustomerDetail$shipmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDetail$shipmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShipmentDetailPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  user<T extends Prisma.CustomerDetail$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDetail$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1306,6 +1394,25 @@ export type CustomerDetail$shipmentsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.ShipmentDetailScalarFieldEnum | Prisma.ShipmentDetailScalarFieldEnum[]
+}
+
+/**
+ * CustomerDetail.user
+ */
+export type CustomerDetail$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

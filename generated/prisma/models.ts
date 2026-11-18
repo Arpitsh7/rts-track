@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/User'
 export type * from './models/ItemDetail'
 export type * from './models/CustomerDetail'
 export type * from './models/Rider'

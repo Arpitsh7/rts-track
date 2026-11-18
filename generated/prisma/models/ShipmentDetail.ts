@@ -602,10 +602,6 @@ export type EnumShipmentStatusFieldUpdateOperationsInput = {
   set?: $Enums.ShipmentStatus
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type ShipmentDetailCreateNestedOneWithoutTrackingUpdatesInput = {
   create?: Prisma.XOR<Prisma.ShipmentDetailCreateWithoutTrackingUpdatesInput, Prisma.ShipmentDetailUncheckedCreateWithoutTrackingUpdatesInput>
   connectOrCreate?: Prisma.ShipmentDetailCreateOrConnectWithoutTrackingUpdatesInput
